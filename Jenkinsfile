@@ -2,9 +2,15 @@ properties([
   pipelineTriggers([pollSCM('H/3 * * * *')]) 
   ])
 node() { 
-  cleanWs()
-  checkout scm
-  sh "make" 
-  sh "./main"
-  archiveArtifacts artifacts: 'main'
+  stage("checkout") {
+    cleanWs()
+    checkout scm
+  }
+  stage("build") {
+    sh "make" 
+    sh "./main"
+  }
+  stage("archivage") {
+    archiveArtifacts artifacts: 'main'
+  }
 }
