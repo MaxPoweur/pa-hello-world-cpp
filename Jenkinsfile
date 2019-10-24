@@ -8,9 +8,11 @@ node() {
   }
   stage("build") {
     sh "make" 
-    sh "./main"
   }
   stage("archivage") {
     archiveArtifacts artifacts: 'main'
+  }
+  stage("exec") {
+    sh "./main"
   }
 }
